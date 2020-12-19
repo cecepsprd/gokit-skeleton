@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package v1;
+
+option go_package = ".;v1";
+
+message GetPersonRequest  {
+string id = 1;
+}
+
+message GetPersonResponse {
+string id = 1;
+string name = 2;
+string email = 3;
+}
+
+message GetPersonsRequest{
+}
+
+message GetPersonsResponse {
+	repeated GetPersonResponse persons = 1;
+}
+
+import "google/api/annotations.proto";  
+
+service Person {
+	rpc GetPerson(GetPersonRequest) returns (GetPersonResponse) {
+		option (google.api.http) = {
+			get : "/person/{id}"
+		};
+	}
+	
+	rpc GetPersons (GetPersonsRequest) returns (GetPersonsResponse) {
+		option (google.api.http) = {
+			get : "/person"
+		};
+	}
+}

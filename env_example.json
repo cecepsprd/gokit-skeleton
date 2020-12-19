@@ -1,0 +1,14 @@
+{
+  "app": {
+    "name": "gokit app",
+    "http_port": ":9908",
+    "grpc_port": ":9909"
+  },
+  "mysql": {
+    "name": "gks",
+    "host": "localhost",
+    "user": "root",
+    "port": "3306",
+    "password": ""
+  }
+}
