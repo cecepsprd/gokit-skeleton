@@ -8,16 +8,17 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/cecepsprd/gokit-skeleton/commons/cache"
 	"github.com/cecepsprd/gokit-skeleton/commons/config"
 	"github.com/cecepsprd/gokit-skeleton/internal/endpoint"
 	"github.com/cecepsprd/gokit-skeleton/internal/handler"
 	"github.com/cecepsprd/gokit-skeleton/internal/service"
 )
 
-func RunServer(personSvc service.PersonService, cfg config.Config) error {
+func RunServer(personSvc service.PersonService, personCache cache.PersonCache, cfg config.Config) error {
 
 	var (
-		personEndpoint = endpoint.MakePersonEndpoint(personSvc)
+		personEndpoint = endpoint.MakePersonEndpoint(personSvc, personCache)
 	)
 
 	h := handler.NewPersonHandler(context.TODO(), personEndpoint)

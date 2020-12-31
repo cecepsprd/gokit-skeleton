@@ -3,8 +3,10 @@ package helpers
 import (
 	"context"
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 
+	v1 "github.com/cecepsprd/gokit-skeleton/api/proto/v1"
 	"github.com/cecepsprd/gokit-skeleton/internal/model"
 	"github.com/gorilla/mux"
 )
@@ -14,7 +16,13 @@ func EncodeResponse(ctx context.Context, w http.ResponseWriter, response interfa
 }
 
 func DecodePersonsRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	return r, nil
+	resp, _ := ioutil.ReadAll(r.Body)
+
+	req := v1.ReadAllPersonRequest{}
+
+	_ = json.Unmarshal(resp, &req)
+
+	return req, nil
 }
 
 func DecodePersonRequest(ctx context.Context, r *http.Request) (interface{}, error) {

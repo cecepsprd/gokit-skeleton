@@ -39,7 +39,7 @@ func (s *grpcServer) GetPerson(ctx context.Context, req *pb.GetPersonRequest) (*
 	return resp.(*pb.GetPersonResponse), nil
 }
 
-func (s *grpcServer) GetPersons(ctx context.Context, req *pb.GetPersonsRequest) (*pb.GetPersonsResponse, error) {
+func (s *grpcServer) GetPersons(ctx context.Context, req *pb.ReadAllPersonRequest) (*pb.GetPersonsResponse, error) {
 	_, resp, err := s.getPersons.ServeGRPC(ctx, req)
 	if err != nil {
 		return nil, err

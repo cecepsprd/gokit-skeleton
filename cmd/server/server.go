@@ -2,7 +2,9 @@ package server
 
 import (
 	"log"
+	"time"
 
+	rds "github.com/cecepsprd/gokit-skeleton/commons/cache"
 	"github.com/cecepsprd/gokit-skeleton/commons/config"
 	"github.com/cecepsprd/gokit-skeleton/commons/db"
 	"github.com/cecepsprd/gokit-skeleton/internal/repository"
@@ -26,9 +28,11 @@ func RunServer() error {
 	// service
 	personService := service.NewPersonService(personRepo)
 
+	personCache := rds.NewPersonCache(cfg, time.Hour*1)
+
 	go func() {
-		_ = rest.RunServer(personService, cfg)
+		_ = rest.RunServer(personService, personCache, cfg)
 	}()
 
-	return grpc.RunServer(personService, cfg)
+	return grpc.RunServer(personService, personCache, cfg)
 }

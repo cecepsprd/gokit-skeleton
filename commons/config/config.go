@@ -6,6 +6,7 @@ type Config struct {
 	App     App
 	MysqlDB MysqlDB
 	MongoDB MongoDB
+	Redis   Redis
 }
 
 type App struct {
@@ -30,6 +31,13 @@ type MongoDB struct {
 	Password string `json:"password"`
 }
 
+type Redis struct {
+	DB       string `json:"db"`
+	Host     string `json:"host"`
+	Port     string `json:"port"`
+	Password string `json:"password"`
+}
+
 func LoadConfiguration() Config {
 	cfg := Config{
 		App: App{
@@ -50,6 +58,12 @@ func LoadConfiguration() Config {
 			User:     viper.GetString("mongo.user"),
 			Port:     viper.GetString("mongo.port"),
 			Password: viper.GetString("mongo.password"),
+		},
+		Redis: Redis{
+			DB:       viper.GetString("redis.name"),
+			Host:     viper.GetString("redis.host"),
+			Port:     viper.GetString("redis.port"),
+			Password: viper.GetString("redis.password"),
 		},
 	}
 

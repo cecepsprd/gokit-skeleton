@@ -15,7 +15,7 @@ type (
 		Name  string `json:"name"`
 		Email string `json:"email"`
 	}
-	GetPersonsRequest struct {
+	ReadAllPersonsRequest struct {
 		Page    int32
 		Limit   int32
 		OrderBy []string

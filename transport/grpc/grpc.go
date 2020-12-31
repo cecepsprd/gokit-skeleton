@@ -7,15 +7,16 @@ import (
 	"os/signal"
 
 	v1 "github.com/cecepsprd/gokit-skeleton/api/proto/v1"
+	"github.com/cecepsprd/gokit-skeleton/commons/cache"
 	"github.com/cecepsprd/gokit-skeleton/commons/config"
 	"github.com/cecepsprd/gokit-skeleton/internal/endpoint"
 	"github.com/cecepsprd/gokit-skeleton/internal/service"
 	"google.golang.org/grpc"
 )
 
-func RunServer(personSvc service.PersonService, cfg config.Config) error {
+func RunServer(personSvc service.PersonService, cachePerson cache.PersonCache, cfg config.Config) error {
 	var (
-		personEndpoint = endpoint.MakePersonEndpoint(personSvc)
+		personEndpoint = endpoint.MakePersonEndpoint(personSvc, cachePerson)
 	)
 
 	grpcServer := NewGRPCServer(personEndpoint, nil)
